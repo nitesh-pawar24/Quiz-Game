@@ -1,38 +1,448 @@
-.App {
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: sans-serif;
+
+  background: linear-gradient(-45deg, #4facfe, #00f2fe, #43e97b, #38f9d7);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+
+  color: #111;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== MAIN APP CONTAINER ===== */
+.app {
   text-align: center;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ===== HEADINGS ===== */
+h1 {
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ===== TIMER BAR ===== */
+.timer-bar {
+  width: 60%;
+  max-width: 500px;
+  margin: 10px auto 25px;
+
+  height: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.timer-fill {
+  height: 100%;
+  transition: width 1s linear, background 0.5s ease;
+}
+
+/* ===== OPTIONS ===== */
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.option {
+  width: 60%;
+  max-width: 300px;
+
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.3);
+  color: #111;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.option:hover {
+  background: black;
+  color: white;
+}
+
+/* Correct answer */
+.option.correct {
+  background: #22c55e !important;
+  color: white;
+}
+
+/* Wrong answer */
+.option.wrong {
+  background: #ef4444 !important;
+  color: white;
+}
+
+/* Disable hover after selection */
+.option.correct:hover,
+.option.wrong:hover {
+  background: inherit;
+}
+
+/* ===== NEXT BUTTON ===== */
+.next-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+
+  background: #1f2937;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.next-btn:hover {
+  background: #111827;
+}
+
+.back-btn {
+  background: transparent;
+  color: #1f2937;
+  border: 2px solid #1f2937;
+}
+
+.back-btn:hover {
+  background: #1f2937;
+  color: white;
+}
+
+/* ===== CATEGORY BUTTONS ===== */
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.categories button {
+  width: 60%;
+  max-width: 300px;
+
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.3);
+  color: #111;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover */
+.categories button:hover {
+  background: black;
+  color: white;
+}
+
+/* Active category (optional) */
+.categories button.active {
+  background: #1f2937;
+  color: white;
+}
+
+/* ===== SCORE HISTORY ===== */
+.history {
+  margin-top: 30px;
+  padding: 15px;
+
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.history-item {
+  margin: 10px 0;
+}
+
+/* Clear history button */
+.history button {
+  margin-top: 10px;
+  padding: 8px 12px;
+
+  background: #ef4444;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ===== SMALL TEXT ===== */
+p {
+  margin-top: 15px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  margin-bottom: 15px;
+  padding: 8px 16px;
+
+  background: transparent;
+  color: #111;
+
+  border: 2px solid #111;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: black;
+  color: white;
+}
+
+.history-item {
+  background: rgba(255,255,255,0.2);
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 10px;
+}
+
+/* ===== RESULTS SCREEN ===== */
+.results-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px 50px;
+  gap: 24px;
+}
+
+/* Grade badge */
+.grade-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  border: 3px solid;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.grade-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.grade-label {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* Score ring */
+.score-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.score-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.score-ring-text {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  line-height: 1.1;
+}
+
+.score-num {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #111;
+}
+
+.score-denom {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.score-pct {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* Motivational message */
+.results-message {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  max-width: 480px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 12px;
+  padding: 12px 20px;
+  animation: fadeUp 0.6s 0.35s ease both;
+}
+
+/* Breakdown section */
+.breakdown {
+  width: 100%;
+  max-width: 560px;
+  animation: fadeUp 0.6s 0.45s ease both;
+}
+
+.breakdown-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: #1f2937;
+  text-align: left;
+}
+
+.breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  text-align: left;
+  border-left: 5px solid transparent;
+  backdrop-filter: blur(6px);
+}
+
+.breakdown-correct {
+  background: rgba(34, 197, 94, 0.18);
+  border-left-color: #22c55e;
+}
+
+.breakdown-wrong {
+  background: rgba(239, 68, 68, 0.15);
+  border-left-color: #ef4444;
+}
+
+.breakdown-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdown-num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.12);
+  padding: 2px 8px;
+  border-radius: 20px;
+  color: #111;
+}
+
+.breakdown-icon {
+  font-size: 1rem;
+}
+
+.breakdown-question {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.breakdown-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.82rem;
+}
+
+.breakdown-yours {
+  color: #374151;
+}
+
+.breakdown-yours.timed-out {
+  color: #b45309;
+  font-style: italic;
+}
+
+.breakdown-correct-ans {
+  color: #15803d;
+}
+
+/* Results action buttons */
+.results-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.6s 0.55s ease both;
+}
+
+.results-btn {
+  padding: 13px 28px;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.results-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.primary-btn {
+  background: #1f2937;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.secondary-btn {
+  background: rgba(255,255,255,0.35);
+  color: #111;
+  border: 2px solid #1f2937;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.secondary-btn:hover {
+  background: #1f2937;
+  color: white;
 }
