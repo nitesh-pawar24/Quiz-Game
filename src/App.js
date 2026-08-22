@@ -2,6 +2,16 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./App.css";
 import questions from "./questions";
 
+// Fisher-Yates shuffle (returns a new array)
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function App() {
   const [category, setCategory] = useState(null);
   const [current, setCurrent] = useState(0);
@@ -20,10 +30,14 @@ function App() {
     return clean;
   });
 
-  const currentQuestions = useMemo(
-    () => (category ? questions[category] : []),
-    [category]
-  );
+  const currentQuestions = useMemo(() => {
+    if (!category) return [];
+    // Shuffle question order, then shuffle each question's options
+    return shuffle(questions[category]).map((q) => ({
+      ...q,
+      options: shuffle(q.options),
+    }));
+  }, [category]);
 
   // ===== TIMER =====
   useEffect(() => {
