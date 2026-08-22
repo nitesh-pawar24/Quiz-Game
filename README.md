@@ -3,7 +3,7 @@
 **Quiz Game** is a single-player, category-based quiz web app built with **React**.  
 It features a clean UI with animated background support, timed questions (progress-bar timer), score tracking and history, and localStorage-backed persistence.
 
-Live demo: _(add your Vercel/Netlify link here)_
+Live demo: https://quiz-game-mu-sage.vercel.app/
 
 ---
 
